@@ -66,7 +66,11 @@ public:
         cout << "BinaryTree height is " << height(root) << " levels." << endl;
     }
     
-
+    void visualTree()
+    {
+        // we need level order for this
+        // and height
+    }
     
     void runLevelOrder()
     {
