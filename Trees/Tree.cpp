@@ -42,6 +42,7 @@ public:
 //            root = tmp;
 //        }
 //    }
+    
     // ***** INSERTION ***** //
     void insert(int data)
     {
@@ -98,6 +99,12 @@ public:
         
         else
         {
+            if (tmp->left == NULL)
+            {
+                return tmp->left;
+            }
+            else if (tmp->right == NULL)
+                
             levelOrder(tmp->left);
             levelOrder(tmp->right);
             return tmp;
