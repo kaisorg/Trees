@@ -15,9 +15,10 @@ int main()
     BinaryTree BT;
     BT.insert(3);
     BT.insert(5);
-//    BT.insert(7);
+    BT.insert(7);
+    BT.insert(9);
 //    BT.printRoot();
-//    BT.runLevelOrder();
+    BT.runLevelOrder();
     BT.printHeight();
     
     

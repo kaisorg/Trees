@@ -34,26 +34,42 @@ public:
     
 //    ~BinaryTree() // definitely wrong as f
 //    {
-//        cout << "Warning: Destructor called." << endl;
-//        for (Node *tmp = root; tmp != NULL;)
-//        {
-//            tmp = root->left;
-//            delete root;
-//            root = tmp;
-//        }
+//        cout << "BinaryTree Warning: Destructor called." << endl;
+//        destroyTree();
 //    }
     
     // ***** INSERTION ***** //
-    void insert(int data)
+//    void insert(int data)
+//    {
+//        if (root == NULL) root = new Node(data);
+//
+//        else
+//        {
+//            Node *plug = new Node(data); // new node is being successfully created with the data
+//            levelOrder(root) = *plug; // the pointers are just not being assigned
+//            //by default , tmp->left POINTS to NULL
+//            //we want to change it to POINT to new Node
+//        }
+//    }
+    
+    void insert(int data) //modified insert from slides
     {
-        if (root == NULL)
-            root = new Node(data);
-
-        else
-        {
-            Node *plug = new Node(data);
-            plug = levelOrder(root);
-        }
+        if (root == NULL) root = new Node(data);
+        
+        else insert(data, root);
+    }
+    
+    void insert(int data, Node *tmp)
+    {
+        if (tmp->left != NULL)
+            insert(data, tmp->left); //recursion for left
+        else if (tmp->left == NULL)
+            tmp->left = new Node(data);
+        
+        else if (tmp->right != NULL)
+            insert(data, tmp->right); //recursion for right
+        else if (tmp->right == NULL)
+            tmp->right = new Node(data);
     }
     
     // ***** PRINTS ***** //
@@ -83,33 +99,19 @@ public:
         if (root == NULL)
             cout << "BinaryTree Error: printLevelOrder failed because BinaryTree does not exist." << endl;
         
+        else if (tmp == NULL)
+            return;
+        
         else
         {
-            printLevelOrder(tmp->left);
             cout << tmp->info << " ";
+            printLevelOrder(tmp->left);
             printLevelOrder(tmp->right);
         }
     }
     
     // ***** TRAVERSALS ***** //
-    
-    Node *levelOrder(Node *tmp) // trying to return the pointer
-    {
-        if (tmp == NULL) return tmp;
-        
-        else
-        {
-            if (tmp->left == NULL)
-            {
-                return tmp->left;
-            }
-            else if (tmp->right == NULL)
-                
-            levelOrder(tmp->left);
-            levelOrder(tmp->right);
-            return tmp;
-        }
-    }
+
     
     // ***** HELPER FUNCTIONS ***** //
     int height(Node *root)
