@@ -52,7 +52,7 @@ public:
 //        }
 //    }
     
-    void insert(int data) //modified insert from slides
+    void insert(int data)
     {
         if (root == NULL) root = new Node(data);
         
@@ -61,15 +61,29 @@ public:
     
     void insert(int data, Node *tmp)
     {
-        if (tmp->left != NULL)
-            insert(data, tmp->left); //recursion for left
-        else if (tmp->left == NULL)
-            tmp->left = new Node(data);
-        
-        else if (tmp->right != NULL)
-            insert(data, tmp->right); //recursion for right
-        else if (tmp->right == NULL)
-            tmp->right = new Node(data);
+        if (tmp->left == NULL || tmp->right == NULL)
+        {
+            if (tmp->left == NULL)
+                tmp->left = new Node(data);
+            else if (tmp->right == NULL)
+                tmp->right = new Node(data);
+        }
+
+        else if (tmp->left != NULL && tmp->right != NULL)
+        {
+            if (tmp->left != NULL)
+                insert(data, tmp->left); //recursion for left
+            else if (tmp->right != NULL)
+                insert(data, tmp->right); //recursion for right
+        }
+    }
+    
+    void autoFill(int amount)
+    {
+        for(int i = 0; i < amount; i++)
+        {
+            insert(i);
+        }
     }
     
     // ***** PRINTS ***** //
@@ -100,7 +114,9 @@ public:
             cout << "BinaryTree Error: printLevelOrder failed because BinaryTree does not exist." << endl;
         
         else if (tmp == NULL)
+        {
             return;
+        }
         
         else
         {
@@ -108,6 +124,7 @@ public:
             printLevelOrder(tmp->left);
             printLevelOrder(tmp->right);
         }
+        
     }
     
     // ***** TRAVERSALS ***** //
