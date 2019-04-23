@@ -30,7 +30,7 @@ class BinaryTree
 {
 public:
     BinaryTree()
-    { root = leaf = NULL; }
+    { root = NULL; }
     
 //    ~BinaryTree() // definitely wrong as f
 //    {
@@ -39,19 +39,6 @@ public:
 //    }
     
     // ***** INSERTION ***** //
-//    void insert(int data)
-//    {
-//        if (root == NULL) root = new Node(data);
-//
-//        else
-//        {
-//            Node *plug = new Node(data); // new node is being successfully created with the data
-//            levelOrder(root) = *plug; // the pointers are just not being assigned
-//            //by default , tmp->left POINTS to NULL
-//            //we want to change it to POINT to new Node
-//        }
-//    }
-    
     void insert(int data)
     {
         if (root == NULL) root = new Node(data);
@@ -81,9 +68,7 @@ public:
     void autoFill(int amount)
     {
         for(int i = 0; i < amount; i++)
-        {
             insert(i);
-        }
     }
     
     // ***** PRINTS ***** //
@@ -103,29 +88,27 @@ public:
         // and height
     }
     
-    void runLevelOrder()
+    void printPreOrder()
     {
-        printLevelOrder(root);
+        cout << "BinaryTree PreOrder print:" << endl;
+        printPreOrder(root);
+        cout << endl << "----------------" << endl;
     }
     
-    void printLevelOrder(Node *tmp)
+    void printInOrder()
     {
-        if (root == NULL)
-            cout << "BinaryTree Error: printLevelOrder failed because BinaryTree does not exist." << endl;
-        
-        else if (tmp == NULL)
-        {
-            return;
-        }
-        
-        else
-        {
-            cout << tmp->info << " ";
-            printLevelOrder(tmp->left);
-            printLevelOrder(tmp->right);
-        }
-        
+        cout << "BinaryTree InOrder print:" << endl;
+        printInOrder(root);
+        cout << endl << "----------------" << endl;
     }
+    
+    void printPostOrder()
+    {
+        cout << "BinaryTree PostOrder print:" << endl;
+        printPostOrder(root);
+        cout << endl << "----------------" << endl;
+    }
+
     
     // ***** TRAVERSALS ***** //
 
@@ -149,7 +132,46 @@ public:
     }
     
 private:
-    Node *root, *leaf;
+    Node *root;
+    
+    void printPreOrder(Node *tmp)
+    {
+        if (root == NULL)
+            cout << "BinaryTree Error: printLevelOrder failed because BinaryTree does not exist." << endl;
+        
+        else if (tmp != NULL)
+        {
+            cout << tmp->info << " ";
+            printInOrder(tmp->left);
+            printInOrder(tmp->right);
+        }
+    }
+    
+    void printInOrder(Node *tmp)
+    {
+        if (root == NULL)
+            cout << "BinaryTree Error: printInOrder failed because BinaryTree does not exist." << endl;
+        
+        else if (tmp != NULL)
+        {
+            printInOrder(tmp->left);
+            cout << tmp->info << " ";
+            printInOrder(tmp->right);
+        }
+    }
+    
+    void printPostOrder(Node *tmp)
+    {
+        if (root == NULL)
+            cout << "BinaryTree Error: printPostOrder failed because BinaryTree does not exist." << endl;
+        
+        else if (tmp != NULL)
+        {
+            printInOrder(tmp->left);
+            printInOrder(tmp->right);
+            cout << tmp->info << " ";
+        }
+    }
 };
 
 class BSTree

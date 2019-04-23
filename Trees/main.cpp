@@ -19,26 +19,23 @@ int main()
     BT.insert(9); // root->left->left
     BT.insert(11);// root->left->right
 
-    
+    // What this is supposed to look like:
     //           3
     //          / \
     //        5      7
     //       / \    / \
     //      9  11
     //
-    //      3 5 7 9 11
-    
-    //           3
-    //          / \
-    //        5      9
-    //       / \    / \
-    //      11  7
-    //
-    //      3 5 9 11 7
+    // LevelOrder:  3 5 7 9 11  // we need to make this work ...
+    // PreOrder:    3 5 9 11 7  // our PreOrder is CORRECT
+    // InOrder:     9 5 11 3 7  // our InOrder is CORRECT
+    // PostOrder:   9 11 5 7 3  // our PostOrder is CORRECT
     
 //    BT.autoFill(10);
 //    BT.printRoot();
-    BT.runLevelOrder();
+    BT.printPreOrder();
+    BT.printInOrder();
+    BT.printPostOrder();
     BT.printHeight();
     
     
