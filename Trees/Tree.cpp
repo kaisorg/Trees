@@ -26,7 +26,7 @@ public:
 class BinaryTree
 // Type of Tree where there are 0, 1, or 2 children per Node...
 // ...However, there is no built-in sorting...
-// ...And right-side Nodes are allowed //
+// ...Maintains fullness/completeness during insertion //
 {
 public:
     BinaryTree()
@@ -48,10 +48,11 @@ public:
     
     void insert(int data, Node *tmp)
     {
-        if (tmp->left == NULL || tmp->right == NULL)
-        {
+        if (tmp->left == NULL || tmp->right == NULL) // because && ignores the second value
+        {                                            // when the first equals false //
             if (tmp->left == NULL)
                 tmp->left = new Node(data);
+            
             else if (tmp->right == NULL)
                 tmp->right = new Node(data);
         }
@@ -60,6 +61,7 @@ public:
         {
             if (tmp->left != NULL)
                 insert(data, tmp->left); //recursion for left
+            
             else if (tmp->right != NULL)
                 insert(data, tmp->right); //recursion for right
         }
@@ -80,6 +82,7 @@ public:
     void printHeight()
     {
         cout << "BinaryTree height is " << height(root) << " levels." << endl;
+        cout << "----------------" << endl;
     }
     
     void visualTree()
@@ -118,6 +121,7 @@ public:
     {
         if (root == NULL)
             return 0;
+        
         else
         {
             /* compute the height of each subtree */
@@ -177,7 +181,7 @@ private:
 class BSTree
 // Type of Tree where there are 0, 1, or 2 children per Node...
 // ...It has built-in sorting, where the median is the root Node...
-// ...And right-side Nodes are allowed //
+// ...Maintains fullness/completeness during insertion //
 {
 public:
     // CONSTRUCTOR
