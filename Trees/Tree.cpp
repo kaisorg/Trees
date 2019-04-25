@@ -57,7 +57,7 @@ public:
                 tmp->right = new Node(data);
         }
 
-        else if (tmp->left != NULL && tmp->right != NULL)
+        else if (tmp->left != NULL || tmp->right != NULL)
         {
             if (tmp->left != NULL)
                 insert(data, tmp->left); //recursion for left
@@ -91,6 +91,13 @@ public:
         // and height
     }
     
+    void printLevelOrder()
+    {
+        cout << "BinaryTree LevelOrder print:" << endl;
+        printLevelOrder(root);
+        cout << endl << "----------------" << endl;
+    }
+    
     void printPreOrder()
     {
         cout << "BinaryTree PreOrder print:" << endl;
@@ -111,32 +118,41 @@ public:
         printPostOrder(root);
         cout << endl << "----------------" << endl;
     }
-
     
     // ***** TRAVERSALS ***** //
 
     
-    // ***** HELPER FUNCTIONS ***** //
-    int height(Node *root)
-    {
-        if (root == NULL)
-            return 0;
-        
-        else
-        {
-            /* compute the height of each subtree */
-            int lheight = height(root->left);
-            int rheight = height(root->right);
-            
-            /* use the larger one */
-            if (lheight > rheight)
-                return(lheight + 1);
-            else return(rheight + 1);
-        }
-    }
-    
 private:
     Node *root;
+
+    // ***** RECURSIVE FUNCTIONS ***** //
+    void printLevelOrder(Node *tmp)
+    {
+        int h = height(tmp);
+        int i;
+        for (i = 1; i <= h; i++)
+            printGivenLevel(tmp, i);
+    }
+    
+    void printGivenLevel(Node *tmp, int level)
+    {
+        if (root == NULL)
+            cout << "BinaryTree Error: printLevelOrder failed because BinaryTree does not exist." << endl;
+        else
+        {
+            if (tmp == NULL)
+                return;
+            
+            if (level == 1)
+                cout << tmp->info << " ";
+            
+            else if (level > 1)
+            {
+                printGivenLevel(tmp->left, level-1);
+                printGivenLevel(tmp->right, level-1);
+            }
+        }
+    }
     
     void printPreOrder(Node *tmp)
     {
@@ -146,8 +162,8 @@ private:
         else if (tmp != NULL)
         {
             cout << tmp->info << " ";
-            printInOrder(tmp->left);
-            printInOrder(tmp->right);
+            printPreOrder(tmp->left);
+            printPreOrder(tmp->right);
         }
     }
     
@@ -171,9 +187,27 @@ private:
         
         else if (tmp != NULL)
         {
-            printInOrder(tmp->left);
-            printInOrder(tmp->right);
+            printPostOrder(tmp->left);
+            printPostOrder(tmp->right);
             cout << tmp->info << " ";
+        }
+    }
+    
+    int height(Node *tmp)
+    {
+        if (root == NULL || tmp == NULL)
+            return 0;
+        
+        else
+        {
+            /* compute the height of each subtree */
+            int lheight = height(tmp->left);
+            int rheight = height(tmp->right);
+            
+            /* use the larger one */
+            if (lheight > rheight)
+                return(lheight + 1);
+            else return(rheight + 1);
         }
     }
 };
