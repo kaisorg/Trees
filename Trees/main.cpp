@@ -13,11 +13,11 @@ using namespace std;
 int main()
 {
     BinaryTree BT;
-    BT.insert(3); // root
-    BT.insert(5); // root->left
-    BT.insert(7); // root->right
-    BT.insert(9); // root->left->left
-    BT.insert(11);// root->left->right
+//    BT.insert(3); // root
+//    BT.insert(5); // root->left
+//    BT.insert(7); // root->right
+//    BT.insert(9); // root->left->left
+//    BT.insert(11);// root->left->right
 
     // What this is supposed to look like:
     //           3
@@ -31,7 +31,7 @@ int main()
     // InOrder:     9 5 11 3 7  // our InOrder is CORRECT
     // PostOrder:   9 11 5 7 3  // our PostOrder is CORRECT
     
-//    BT.autoFill(10);
+    BT.autoFill(10);
     
 //    BT.printRoot();
     BT.printLevelOrder();

@@ -10,6 +10,7 @@
 using namespace std;
 
 class Node
+// Simple Node, containing pointers to left and right, and var for integer
 {
 public:
     Node()
@@ -17,7 +18,6 @@ public:
     
     Node(int data, Node *Lptr = NULL, Node *Rptr = NULL)
     { info = data; left = Lptr; right = Rptr; }
-
     
     int info;
     Node *left, *right;
@@ -41,36 +41,36 @@ public:
     // ***** INSERTION ***** //
     void insert(int data)
     {
-        if (root == NULL) root = new Node(data);
+        if (root == NULL) root = new Node(data); // Simply create new Node with (data) and make it *root //
         
-        else insert(data, root);
+        else insert(data, root); // Else go to the recursive insert function using the second param //
     }
     
-    void insert(int data, Node *tmp)
+    void insert(int data, Node *tmp) // Recursive insert function //
     {
-        if (tmp->left == NULL || tmp->right == NULL) // because && ignores the second value
-        {                                            // when the first equals false //
-            if (tmp->left == NULL)
-                tmp->left = new Node(data);
+        if (tmp->left == NULL || tmp->right == NULL) // Check if EITHER the left or the right are open //
+        {
+            if (tmp->left == NULL)          // If the left was the open one,
+                tmp->left = new Node(data); // insert there //
             
-            else if (tmp->right == NULL)
-                tmp->right = new Node(data);
+            else if (tmp->right == NULL)     // Else if the right one was the open one,
+                tmp->right = new Node(data); // insert there //
         }
 
-        else if (tmp->left != NULL || tmp->right != NULL)
+        else if (tmp->left != NULL || tmp->right != NULL) // But if they were both taken...
         {
             if (tmp->left != NULL)
-                insert(data, tmp->left); //recursion for left
-            
+                insert(data, tmp->left);    // ...Start recursing through the tree...
+                                            // ...Until it finds the opening //
             else if (tmp->right != NULL)
-                insert(data, tmp->right); //recursion for right
+                insert(data, tmp->right);
         }
     }
     
-    void autoFill(int amount)
-    {
+    void autoFill(int amount)   // Function to automatically fill the tree...
+    {                           // ...with random numbers //
         for(int i = 0; i < amount; i++)
-            insert(i);
+            insert(rand()%100);
     }
     
     // ***** PRINTS ***** //
@@ -89,6 +89,15 @@ public:
     {
         // we need level order for this
         // and height
+        
+        // pseudocode:
+        // use height to determine how many spaces the root needs
+        // use levelorder and print the root
+        // endl and then insert slashes
+        // the amount of spaces used for the root, minus a variable number, print the root->left
+        // then the number of spaces subtracted are then printed
+        // then the right is printed, endl;
+        // insert slashes
     }
     
     void printLevelOrder()
@@ -118,9 +127,6 @@ public:
         printPostOrder(root);
         cout << endl << "----------------" << endl;
     }
-    
-    // ***** TRAVERSALS ***** //
-
     
 private:
     Node *root;
