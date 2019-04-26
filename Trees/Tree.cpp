@@ -73,6 +73,18 @@ public:
             insert(rand()%100);
     }
     
+    // ***** DELETION ***** //
+    void deleteRoot()
+    {
+        
+    }
+    
+    void deleteLeaf(int data)
+    {
+        // traverse tree until tmp->info == data
+        // delete tmp and reattach pointers
+    }
+    
     // ***** PRINTS ***** //
     void printRoot()
     {
@@ -144,6 +156,7 @@ private:
     {
         if (root == NULL)
             cout << "BinaryTree Error: printLevelOrder failed because BinaryTree does not exist." << endl;
+        
         else
         {
             if (tmp == NULL)
@@ -206,14 +219,11 @@ private:
         
         else
         {
-            /* compute the height of each subtree */
-            int lheight = height(tmp->left);
-            int rheight = height(tmp->right);
+            int left = height(tmp->left); // Recursive calls for depth-first //
+            int right = height(tmp->right);
             
-            /* use the larger one */
-            if (lheight > rheight)
-                return(lheight + 1);
-            else return(rheight + 1);
+            if (left > right) return (left+1);  // if the left is larger, return left
+            else return (right+1);              // +1 to compensate for the recursion missing one
         }
     }
 };
