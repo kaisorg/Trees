@@ -91,12 +91,6 @@ public:
         cout << root->info << endl;
     }
     
-    void printHeight()
-    {
-        cout << "BinaryTree height is " << height(root) << " levels." << endl;
-        cout << "----------------" << endl;
-    }
-    
     void visualTree()
     {
         // we need level order for this
@@ -114,46 +108,56 @@ public:
     
     void printLevelOrder()
     {
-        cout << "BinaryTree LevelOrder print:" << endl;
+        cout << "BinaryTree: LevelOrder print:" << endl;
         printLevelOrder(root);
         cout << endl << "----------------" << endl;
     }
     
     void printPreOrder()
     {
-        cout << "BinaryTree PreOrder print:" << endl;
+        cout << "BinaryTree: PreOrder print:" << endl;
         printPreOrder(root);
         cout << endl << "----------------" << endl;
     }
     
     void printInOrder()
     {
-        cout << "BinaryTree InOrder print:" << endl;
+        cout << "BinaryTree: InOrder print:" << endl;
         printInOrder(root);
         cout << endl << "----------------" << endl;
     }
     
     void printPostOrder()
     {
-        cout << "BinaryTree PostOrder print:" << endl;
+        cout << "BinaryTree: PostOrder print:" << endl;
         printPostOrder(root);
         cout << endl << "----------------" << endl;
     }
     
     // ***** SEARCH & SIZE ***** //
-    Node *search(int data)
+    void search(int data)
     {
-        return search(data, root);
-    }
-    
-    void numberOfNodes()
-    {
+        cout << "BinaryTree: Searching for '" << data << "'... " << endl;
         
+        // if found, cout "data was found on level x of the tree"
+        // if not, cout " data was not found in the tree"
+        
+        int found = search(data, root);
+        if (found != 0) cout << "'" << data << "' was found at Level " << found << "." << endl;
+        else cout << "'" << data << "' was not found." << endl;
+        cout << "----------------" << endl;
     }
     
     void numberOfLevels()
     {
-        
+        cout << "BinaryTree: Number of Levels: " << height(root) << "." << endl;
+        cout << "----------------" << endl;
+    }
+    
+    void numberOfNodes()
+    {
+        cout << "BinaryTree: Number of Nodes: " << numberOfNodes(root) << "." << endl;
+        cout << "----------------" << endl;
     }
     
 private:
@@ -229,7 +233,7 @@ private:
     
     int height(Node *tmp)
     {
-        if (root == NULL || tmp == NULL)
+        if (tmp == NULL)
             return 0;
         
         else
@@ -242,17 +246,51 @@ private:
         }
     }
     
-    Node *search(int data, Node *tmp)
+//    int search(int data, Node *tmp)
+//    {
+//        if (tmp != NULL)
+//        {
+//            if (data == tmp->info) return searchHeight(data, tmp); // When we have found that the value DOES exist in the tree
+//                                                                   // We need to find what LEVEL it resides on, thus calling searchHeight
+//            else
+//            {
+//                if (data < tmp->info) return search(data, tmp->left); // But if we haven't, we need to recurse the tree until the match is found
+//                else return search(data, tmp->right);
+//            }
+//        }
+//        else return NULL;
+//    }
+    
+    int search(int data, Node *tmp)
     {
-        if (tmp != NULL)
-        {
-            if (data == tmp->info) return tmp;
-            
-            if (data < tmp->info) return search(data, tmp->left);
-            else return search(data, tmp->right);
-        }
+        if (root->info == data) return 1; // This will always print "Level 1" for the Root
         
-        else return NULL;
+        if (tmp != NULL && tmp->info != data) // This is the hard part ... We have to find where tmp-info == data while tmp != NULL
+        {                // Bc if tmp == NULL then it does not exist
+//            if (tmp->info != data)
+//            {
+                int left = search(data, tmp->left); //
+                int right = search(data, tmp->right);
+                
+                if (left < right) return (left+1);  //
+                else return (right+1);              //
+//            }
+//            else return 0;
+        }
+        else return 0;
+    }
+    
+    int numberOfNodes(Node *tmp)
+    {
+        int count = 1;
+        
+        if (tmp->left != NULL)
+            count += numberOfNodes(tmp->left);
+        
+        if (tmp->right != NULL)
+            count += numberOfNodes(tmp->right);
+        
+        return count;
     }
 };
 
