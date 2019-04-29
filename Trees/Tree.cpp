@@ -40,6 +40,7 @@ public:
      // ******* Destructor  ******//
     ~BinaryTree()
     {
+        cout << "BinaryTree Warning: Destructor called." << endl;
         destroy_tree();
     }
     // ****** Wrap that calls private destroy function ****//
@@ -239,9 +240,11 @@ private:
     {
         if(tmp != NULL)
         {
+            
             destroy_tree(tmp->left);
             destroy_tree(tmp->right);
-            delete tmp;
+            delete tree;
+            
         }
     }
 };
