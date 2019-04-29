@@ -40,6 +40,5 @@ int main()
     BT.printPostOrder();
     BT.printHeight();
     
-    
     return 0;
 }

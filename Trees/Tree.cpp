@@ -140,6 +140,22 @@ public:
         cout << endl << "----------------" << endl;
     }
     
+    // ***** SEARCH & SIZE ***** //
+    Node *search(int data)
+    {
+        return search(data, root);
+    }
+    
+    void numberOfNodes()
+    {
+        
+    }
+    
+    void numberOfLevels()
+    {
+        
+    }
+    
 private:
     Node *root;
 
@@ -224,6 +240,19 @@ private:
             if (left > right) return (left+1);  // if the left is larger, return left
             else return (right+1);              // +1 to compensate for the recursion missing one
         }
+    }
+    
+    Node *search(int data, Node *tmp)
+    {
+        if (tmp != NULL)
+        {
+            if (data == tmp->info) return tmp;
+            
+            if (data < tmp->info) return search(data, tmp->left);
+            else return search(data, tmp->right);
+        }
+        
+        else return NULL;
     }
 };
 
