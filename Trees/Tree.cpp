@@ -147,8 +147,7 @@ private:
     void printLevelOrder(Node *tmp)
     {
         int h = height(tmp);
-        int i;
-        for (i = 1; i <= h; i++)
+        for (int i = 1; i <= h; i++)
             printGivenLevel(tmp, i);
     }
     
