@@ -37,6 +37,16 @@ public:
 //        cout << "BinaryTree Warning: Destructor called." << endl;
 //        destroyTree();
 //    }
+     // ******* Destructor  ******//
+    ~BinaryTree()
+    {
+        destroy_tree();
+    }
+    // ****** Wrap that calls private destroy function ****//
+    void destroy_tree()
+    {
+        destroy_tree(root);
+    }
     
     // ***** INSERTION ***** //
     void insert(int data)
@@ -223,6 +233,15 @@ private:
             
             if (left > right) return (left+1);  // if the left is larger, return left
             else return (right+1);              // +1 to compensate for the recursion missing one
+        }
+    }
+    void destroy_tree( Node *tmp)
+    {
+        if(tmp != NULL)
+        {
+            destroy_tree(tmp->left);
+            destroy_tree(tmp->right);
+            delete tmp;
         }
     }
 };
