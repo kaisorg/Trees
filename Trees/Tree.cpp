@@ -87,12 +87,13 @@ public:
     // ***** DELETION ***** //
     void deleteRoot()
     {
-        
+       deleteroot(root);
     }
     
     void deleteLeaf(int data)
-    {
+    {   
         // traverse tree until tmp->info == data
+       
         // delete tmp and reattach pointers
     }
     
@@ -245,6 +246,34 @@ private:
             destroy_tree(tmp->right);
             delete tree;
             
+        }
+    }
+    void deleteroot (root)  //deleteing the root and replacing it with the last value 
+    {
+         Node *tmp = root;
+        if (root==NULL)
+        {
+            cout<<"root does not exsist"<<endl;
+        }
+        else
+        {
+            if (tmp->left != NULL && tmp->right != NULL) 
+            {
+                Node *replacment = Node *lastvalue(); //calls the function that returns the last value
+                delete root;
+                root = replacment;
+            } 
+        }
+        
+    }
+    Node *lastvalue (Node *tmp) //finds and returns the last value in the tree using post order traversal
+    {
+        Node *tmp = root;
+        if (tmp!= NULL)
+        {
+            Node *lastvalue(tmp->left);
+            Node *lastvalue(tmp->right);
+            return tmp;
         }
     }
 };
