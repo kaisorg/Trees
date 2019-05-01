@@ -151,6 +151,12 @@ public:
         printPostOrder(root);
         cout << endl << "----------------" << endl;
     }
+
+    void testlastvalue()
+    {
+        Node *tmp = lastvalue(tmp);
+        cout<<tmp->info<<endl;
+    }
     
 private:
     Node *root;
@@ -244,11 +250,11 @@ private:
             
             destroy_tree(tmp->left);
             destroy_tree(tmp->right);
-            delete tree;
+            delete tmp;
             
         }
     }
-    void deleteroot (root)  //deleteing the root and replacing it with the last value 
+    void deleteroot (Node *root)  //deleteing the root and replacing it with the last value 
     {
          Node *tmp = root;
         if (root==NULL)
@@ -259,9 +265,11 @@ private:
         {
             if (tmp->left != NULL && tmp->right != NULL) 
             {
-                Node *replacment = Node *lastvalue(); //calls the function that returns the last value
+                Node *replacment = lastvalue(tmp); //calls the function that returns the last value
                 delete root;
                 root = replacment;
+                replacment->left = root->left;
+                replacment->right = root->right;
             } 
         }
         

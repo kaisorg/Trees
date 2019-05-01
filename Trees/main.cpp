@@ -39,8 +39,8 @@ int main()
     BT.printInOrder();
     BT.printPostOrder();
     BT.printHeight();
-    BT.destroy_tree();
-    BT.printLevelOrder();
+    BT.deleteRoot();
+    BT.
     
     return 0;
 }
