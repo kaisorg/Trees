@@ -18,21 +18,24 @@ int main()
     BT.insert(7); // root->right
     BT.insert(9); // root->left->left
     BT.insert(11);// root->left->right
+    BT.insert(13);// root->right->left
+    BT.insert(15);// root->right->right
 
     // What this is supposed to look like:
     //           3
     //          / \
     //        5      7
     //       / \    / \
-    //      9  11
+    //      9  11  13 15
     //
-    // |   FUNCTION   |  EXPECTED  | CORRECT? |
-    // | LevelOrder:  | 3 5 7 9 11 | YES |
-    // | PreOrder:    | 3 5 9 11 7 | YES |
-    // | InOrder:     | 9 5 11 3 7 | YES |
-    // | PostOrder:   | 9 11 5 7 3 | YES |
-    // | Height:      | 3 Levels   | YES |
-    // | Total Nodes: | 5 Nodes    | YES |
+    // |   FUNCTION   |      EXPECTED    | CORRECT? |
+    // | LevelOrder:  | 3 5 7 9 11 13 15 | NO |
+    // | PreOrder:    | 3 5 9 11 7 13 15 | NO |
+    // | InOrder:     | 9 5 11 3 13 7 15 | NO |
+    // | PostOrder:   | 9 11 5 13 15 7 3 | NO |
+    // | Height:      | 3 Levels         | NO |
+    // | Total Nodes: | 7 Nodes          | YES |
+    // | Balanced:    | Not              | NO |
     
 //    BT.autoFill(10);
     
@@ -43,6 +46,7 @@ int main()
     BT.printPostOrder();
     BT.numberOfLevels();
     BT.numberOfNodes();
+    BT.isBalanced();
     
     BT.search(1);
     BT.search(3);

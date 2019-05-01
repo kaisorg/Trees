@@ -46,27 +46,6 @@ public:
         else insert(data, root); // Else go to the recursive insert function using the second param //
     }
     
-    void insert(int data, Node *tmp) // Recursive insert function //
-    {
-        if (tmp->left == NULL || tmp->right == NULL) // Check if EITHER the left or the right are open //
-        {
-            if (tmp->left == NULL)          // If the left was the open one,
-                tmp->left = new Node(data); // insert there //
-            
-            else if (tmp->right == NULL)     // Else if the right one was the open one,
-                tmp->right = new Node(data); // insert there //
-        }
-
-        else if (tmp->left != NULL || tmp->right != NULL) // But if they were both taken...
-        {
-            if (tmp->left != NULL)
-                insert(data, tmp->left);    // ...Start recursing through the tree...
-                                            // ...Until it finds the opening //
-            else if (tmp->right != NULL)
-                insert(data, tmp->right);
-        }
-    }
-    
     void autoFill(int amount)   // Function to automatically fill the tree...
     {                           // ...with random numbers //
         for(int i = 0; i < amount; i++)
@@ -159,10 +138,38 @@ public:
         cout << "----------------" << endl;
     }
     
+    void isBalanced()
+    {
+        if (isBalanced(root)) cout << "BinaryTree is balanced." << endl;
+        else cout << "BinaryTree is not balanced." << endl;
+        cout << "----------------" << endl;
+    }
+    
 private:
     Node *root;
 
     // ***** RECURSIVE FUNCTIONS ***** //
+    void insert(int data, Node *tmp) // Recursive insert function //
+    {
+        if (tmp->left == NULL || tmp->right == NULL) // Check if EITHER the left or the right are open //
+        {
+            if (tmp->left == NULL)          // If the left was the open one,
+                tmp->left = new Node(data); // insert there //
+            
+            else if (tmp->right == NULL)     // Else if the right one was the open one,
+                tmp->right = new Node(data); // insert there //
+        }
+        
+        else if (tmp->left != NULL || tmp->right != NULL) // But if they were both taken...
+        {
+            if (tmp->left != NULL)
+                insert(data, tmp->left);    // ...Start recursing through the tree...
+                                            // ...Until it finds the opening //
+            else if (tmp->right != NULL)
+                insert(data, tmp->right);
+        }
+    }
+    
     void printLevelOrder(Node *tmp)
     {
         int h = height(tmp);
@@ -268,6 +275,26 @@ private:
             count += numberOfNodes(tmp->right);
         
         return count;
+    }
+    
+    bool isBalanced(Node *tmp)
+    {
+        if(tmp == NULL)
+            return 0; // Can't be balanced if it doesn't exist
+        
+        int left;
+        int right;
+        
+        left = height(tmp->left);
+        right = height(tmp->right);
+        
+        if(left-right <= 1 && isBalanced(tmp->left) && isBalanced(tmp->right))
+            return 1;
+        
+        if(left-right > 1 && isBalanced(tmp->left) && isBalanced(tmp->right))
+            return 0;
+        
+        return 0; // Default return
     }
 };
 
