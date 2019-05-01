@@ -26,10 +26,13 @@ int main()
     //       / \    / \
     //      9  11
     //
-    // LevelOrder:  3 5 7 9 11  // our LevelOrder is CORRECT
-    // PreOrder:    3 5 9 11 7  // our PreOrder is CORRECT
-    // InOrder:     9 5 11 3 7  // our InOrder is CORRECT
-    // PostOrder:   9 11 5 7 3  // our PostOrder is CORRECT
+    // |   FUNCTION   |  EXPECTED  | CORRECT? |
+    // | LevelOrder:  | 3 5 7 9 11 | YES |
+    // | PreOrder:    | 3 5 9 11 7 | YES |
+    // | InOrder:     | 9 5 11 3 7 | YES |
+    // | PostOrder:   | 9 11 5 7 3 | YES |
+    // | Height:      | 3 Levels   | YES |
+    // | Total Nodes: | 5 Nodes    | YES |
     
 //    BT.autoFill(10);
     
@@ -38,8 +41,18 @@ int main()
     BT.printPreOrder();
     BT.printInOrder();
     BT.printPostOrder();
-    BT.printHeight();
+    BT.numberOfLevels();
+    BT.numberOfNodes();
     
+    BT.search(1);
+    BT.search(3);
+    BT.search(5);
+    BT.search(7);
+    BT.search(9);
+    BT.search(11);
+    BT.search(13);
+    BT.search(15);
+    BT.search(17);
     
     return 0;
 }

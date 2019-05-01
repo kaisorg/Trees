@@ -91,12 +91,6 @@ public:
         cout << root->info << endl;
     }
     
-    void printHeight()
-    {
-        cout << "BinaryTree height is " << height(root) << " levels." << endl;
-        cout << "----------------" << endl;
-    }
-    
     void visualTree()
     {
         // we need level order for this
@@ -114,30 +108,55 @@ public:
     
     void printLevelOrder()
     {
-        cout << "BinaryTree LevelOrder print:" << endl;
+        cout << "BinaryTree: LevelOrder print:" << endl;
         printLevelOrder(root);
         cout << endl << "----------------" << endl;
     }
     
     void printPreOrder()
     {
-        cout << "BinaryTree PreOrder print:" << endl;
+        cout << "BinaryTree: PreOrder print:" << endl;
         printPreOrder(root);
         cout << endl << "----------------" << endl;
     }
     
     void printInOrder()
     {
-        cout << "BinaryTree InOrder print:" << endl;
+        cout << "BinaryTree: InOrder print:" << endl;
         printInOrder(root);
         cout << endl << "----------------" << endl;
     }
     
     void printPostOrder()
     {
-        cout << "BinaryTree PostOrder print:" << endl;
+        cout << "BinaryTree: PostOrder print:" << endl;
         printPostOrder(root);
         cout << endl << "----------------" << endl;
+    }
+    
+    // ***** SEARCH & SIZE ***** //
+    void search(int data)
+    {
+        cout << "BinaryTree: Searching for '" << data << "'... " << endl;
+        
+        int level = search(data, 1, root);
+        
+        if (level == 1) cout << "'" << data << "' is the root, Level 1." << endl;
+        else if (level > 1) cout << "'" << data << "' was found at Level " << level << "." << endl;
+        else cout << "'" << data << "' was not found." << endl;
+        cout << "----------------" << endl;
+    }
+    
+    void numberOfLevels()
+    {
+        cout << "BinaryTree: Number of Levels: " << height(root) << "." << endl;
+        cout << "----------------" << endl;
+    }
+    
+    void numberOfNodes()
+    {
+        cout << "BinaryTree: Number of Nodes: " << numberOfNodes(root) << "." << endl;
+        cout << "----------------" << endl;
     }
     
 private:
@@ -213,7 +232,7 @@ private:
     
     int height(Node *tmp)
     {
-        if (root == NULL || tmp == NULL)
+        if (tmp == NULL)
             return 0;
         
         else
@@ -224,6 +243,31 @@ private:
             if (left > right) return (left+1);  // if the left is larger, return left
             else return (right+1);              // +1 to compensate for the recursion missing one
         }
+    }
+    
+    int search(int data, int level, Node *tmp)
+    {
+        if (tmp == NULL) return 0;
+        if (tmp->info == data) return level;
+        
+        int reclevel = search(data, level+1, tmp->left);
+        if (reclevel != 0) return reclevel;
+        
+        reclevel = search(data, level+1, tmp->right);
+        return reclevel;
+    }
+    
+    int numberOfNodes(Node *tmp)
+    {
+        int count = 1;
+        
+        if (tmp->left != NULL)
+            count += numberOfNodes(tmp->left);
+        
+        if (tmp->right != NULL)
+            count += numberOfNodes(tmp->right);
+        
+        return count;
     }
 };
 
