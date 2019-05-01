@@ -139,11 +139,10 @@ public:
     {
         cout << "BinaryTree: Searching for '" << data << "'... " << endl;
         
-        // if found, cout "data was found on level x of the tree"
-        // if not, cout " data was not found in the tree"
+        int level = search(data, 1, root);
         
-        int found = search(data, root);
-        if (found != 0) cout << "'" << data << "' was found at Level " << found << "." << endl;
+        if (level == 1) cout << "'" << data << "' is the root, Level 1." << endl;
+        else if (level > 1) cout << "'" << data << "' was found at Level " << level << "." << endl;
         else cout << "'" << data << "' was not found." << endl;
         cout << "----------------" << endl;
     }
@@ -246,38 +245,16 @@ private:
         }
     }
     
-//    int search(int data, Node *tmp)
-//    {
-//        if (tmp != NULL)
-//        {
-//            if (data == tmp->info) return searchHeight(data, tmp); // When we have found that the value DOES exist in the tree
-//                                                                   // We need to find what LEVEL it resides on, thus calling searchHeight
-//            else
-//            {
-//                if (data < tmp->info) return search(data, tmp->left); // But if we haven't, we need to recurse the tree until the match is found
-//                else return search(data, tmp->right);
-//            }
-//        }
-//        else return NULL;
-//    }
-    
-    int search(int data, Node *tmp)
+    int search(int data, int level, Node *tmp)
     {
-        if (root->info == data) return 1; // This will always print "Level 1" for the Root
+        if (tmp == NULL) return 0;
+        if (tmp->info == data) return level;
         
-        if (tmp != NULL && tmp->info != data) // This is the hard part ... We have to find where tmp-info == data while tmp != NULL
-        {                // Bc if tmp == NULL then it does not exist
-//            if (tmp->info != data)
-//            {
-                int left = search(data, tmp->left); //
-                int right = search(data, tmp->right);
-                
-                if (left < right) return (left+1);  //
-                else return (right+1);              //
-//            }
-//            else return 0;
-        }
-        else return 0;
+        int reclevel = search(data, level+1, tmp->left);
+        if (reclevel != 0) return reclevel;
+        
+        reclevel = search(data, level+1, tmp->right);
+        return reclevel;
     }
     
     int numberOfNodes(Node *tmp)
