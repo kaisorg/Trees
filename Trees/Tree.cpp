@@ -155,11 +155,11 @@ private:
         {
             if (tmp->left == NULL)          // If the left was the open one,
                 tmp->left = new Node(data); // insert there //
-            
+
             else if (tmp->right == NULL)     // Else if the right one was the open one,
                 tmp->right = new Node(data); // insert there //
         }
-        
+
         else if (tmp->left != NULL || tmp->right != NULL) // But if they were both taken...
         {
             if (tmp->left != NULL)
