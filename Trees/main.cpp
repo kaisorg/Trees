@@ -39,8 +39,8 @@ int main()
     BT.printInOrder();
     BT.printPostOrder();
     BT.printHeight();
-    BT.deleteRoot();
-    BT.
+   // BT.deleteRoot();
+    BT.testlastvalue();
     
     return 0;
 }
