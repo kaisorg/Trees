@@ -22,7 +22,21 @@ public:
     Node(int data, Node *Lptr = NULL, Node *Rptr = NULL)
     { info = data; left = Lptr; right = Rptr; }
     
-    int info;
+    int info; int height;
     Node *left, *right;
+};
+
+class ANode
+// Node for AVLTree, adds Height var
+{
+public:
+    ANode()
+    { *left = NULL; *right = NULL; }
+    
+    ANode(int data, ANode *Lptr = NULL, ANode *Rptr = NULL)
+    { info = data; left = Lptr; right = Rptr; }
+    
+    int info; int height;
+    ANode *left, *right;
 };
 #endif /* Node_h */

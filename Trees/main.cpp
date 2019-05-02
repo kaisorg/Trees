@@ -25,7 +25,7 @@ int main()
 {
 //    testBinaryTree();
 //    testBSTree();
-//    testAVLTree();
+    testAVLTree();
     
     return 0;
 }
@@ -113,8 +113,17 @@ void testAVLTree()
 {
     AVLTree AVL;
     
+    AVL.insert(10);
+    AVL.insert(20);
+    AVL.insert(30);
+    AVL.insert(40);
+    AVL.insert(50);
+    AVL.insert(60);
+    AVL.insert(70);
+    AVL.insert(80);
+    AVL.insert(90);
+    
     AVL.printRoot();
-    AVL.printLevelOrder();
     AVL.printPreOrder();
     AVL.printInOrder();
     AVL.printPostOrder();

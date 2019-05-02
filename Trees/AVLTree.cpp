@@ -26,57 +26,95 @@ public:
 //    }
     
     // ***** INSERTION ***** //
-    Node *insert(Node *root, int data)
+//    void insert(int data)
+//    {
+//        if (root == NULL)
+//        {
+//            root = new Node(data);
+//        }
+//        else
+//            insert(root, data);
+//    }
+//
+//    Node *insert(Node *tmp, int data)
+//    {
+//        if (tmp == NULL)
+//        {
+//            tmp = new Node(data);
+//            return tmp;
+//        }
+//        else if (data < tmp->info)
+//        {
+//            tmp->left = insert(tmp->left, data);
+//            tmp = balance(tmp);
+//        }
+//        else if (data >= tmp->info)
+//        {
+//            tmp->right = insert(tmp->right, data);
+//            tmp = balance(tmp);
+//        }
+//        return tmp;
+//    }
+    
+    void insert(int data)
     {
-        if (root == NULL)
-        {
-            root = new Node(data);
-            return root;
-        }
-        
-        else if(data < root->info)
-        {
-            root->left = insert(root->left, data);
-            root = balance(root);
-        }
-        
-        else if (data >= root->info)
-        {
-            root->right = insert(root->right, data);
-            root = balance(root);
-        }
-        return root;
+        root = insert(root, data);
     }
     
     // ***** ROTATION ***** //
     Node *LLrotation(Node *parent)
     {
-        Node *tmp;
-        tmp = parent->left;
-        parent->left = tmp->right;
+        Node *tmp = parent->right;
+        Node *tmp2 = tmp->left;
+        
+        // Perform rotation
+        tmp->left = parent;
+        parent->right = tmp2;
+        
+        // Update heights
+        parent->height = max(height(parent->left),
+                        height(parent->right)) + 1;
+        tmp->height = max(height(tmp->left),
+                        height(tmp->right)) + 1;
+        
+        // Return new root
+        return tmp;
+    }
+    
+    Node *RRrotation(Node *parent)
+    {
+        Node *tmp = parent->left;
+        Node *tmp2 = tmp->right;
+        
+        // Perform rotation
         tmp->right = parent;
+        parent->left = tmp2;
+        
+        // Update heights
+        parent->height = max(height(parent->left),
+                             height(parent->right)) + 1;
+        tmp->height = max(height(tmp->left),
+                          height(tmp->right)) + 1;
+        
+        // Return new root
         return tmp;
     }
     
     Node *LRrotation(Node *parent)
     {
+        parent->left = RRrotation(parent->left);
+        parent = LLrotation(parent);
+        return parent;
+    }
 
-    }
-    
-    Node *RRrotation(Node *parent)
-    {
-        Node *tmp;
-        tmp = parent->right;
-        parent->right = tmp->left;
-        tmp->left = parent;
-        return tmp;
-    }
-    
     Node *RLrotation(Node *parent)
     {
-
+        parent->right = LLrotation(parent->right);
+        parent = RRrotation(parent);
+        return parent;
     }
     
+    // ***** BALANCE ***** //
     Node *balance(Node *tmp)
     {
         int BFactor = getBFactor(tmp);
@@ -106,13 +144,6 @@ public:
     {
         cout << "AVLTree: Root print: " << root->info << endl
         << "----------------" << endl;
-    }
-    
-    void printLevelOrder()
-    {
-        cout << "AVLTree: LevelOrder print:" << endl;
-        printLevelOrder(root);
-        cout << endl << "----------------" << endl;
     }
     
     void printPreOrder()
@@ -178,34 +209,42 @@ private:
     Node *root;
     
     // ***** RECURSIVE FUNCTIONS ***** //
-    void insert();
-    
-    void printLevelOrder(Node *tmp)
+    Node *insert(Node *tmp, int data)
     {
-        int h = height(tmp);
-        for (int i = 1; i <= h; i++)
-            printGivenLevel(tmp, i);
-    }
-    
-    void printGivenLevel(Node *tmp, int level)
-    {
-        if (root == NULL)
-            cout << "AVLTree Error: printLevelOrder failed because AVLTree does not exist." << endl;
+        // Normal insertion from BST //
+        if (tmp == NULL)
+            return (new Node(data));
         
-        else
+        if (data < tmp->info)
+            tmp->left = insert(tmp->left, data);
+        else if (data > tmp->info)
+            tmp->right = insert(tmp->right, data);
+        
+        // Updating Height //
+        tmp->height = 1 + max(height(tmp->left), height(tmp->right));
+        
+        // Check balance //
+        int bal = getBFactor(tmp);
+        
+        if (bal > 1 && data < tmp->left->info) // if Left-Left
+            return RRrotation(tmp);
+        
+        if (bal < -1 && data > tmp->right->info) // if Right-Right
+            return LLrotation(tmp);
+        
+        if (bal > 1 && data > tmp->left->info) // if Left-Right
         {
-            if (tmp == NULL)
-                return;
-            
-            if (level == 1)
-                cout << tmp->info << " ";
-            
-            else if (level > 1)
-            {
-                printGivenLevel(tmp->left, level-1);
-                printGivenLevel(tmp->right, level-1);
-            }
+            tmp->left = LLrotation(tmp->left);
+            return RRrotation(tmp);
         }
+        
+        if (bal < -1 && data < tmp->right->info)// if Right-Left
+        {
+            tmp->right = RRrotation(tmp->right);
+            return LLrotation(tmp);
+        }
+        
+        return tmp;
     }
     
     void printPreOrder(Node *tmp)
@@ -249,15 +288,9 @@ private:
     
     int height(Node *tmp)
     {
-        if (tmp != NULL)
-        {
-            int left = height(tmp->left);
-            int right = height(tmp->right);
-            
-            if (left > right) return (left+1);
-            else return (right+1);
-        }
-        return 0;
+        if (tmp == NULL)
+            return 0;
+        return tmp->height;
     }
     
     int search(int data, int level, Node *tmp)
@@ -307,9 +340,13 @@ private:
     
     int getBFactor(Node *tmp) // get Balance Factor of the AVL Tree
     {
-        int left = height(tmp->left);
-        int right = height(tmp->right);
-        int BFactor = left - right;
-        return BFactor;
+        if (tmp == NULL)
+            return 0;
+        return height(tmp->left) - height(tmp->right);
+    }
+    
+    int max(int a, int b)
+    {
+        return (a > b)? a : b;
     }
 };
