@@ -11,6 +11,7 @@
 #include "BSTree.cpp"
 #include "AVLTree.cpp"
 #include "Heap.cpp"
+#include <queue>
 using namespace std;
 
 // ***** PROTOTYPES ***** //
@@ -23,7 +24,8 @@ void testHeap();
 int main()
 {
 //    testBinaryTree();
-    testBSTree();
+//    testBSTree();
+//    testAVLTree();
     
     return 0;
 }
@@ -39,27 +41,6 @@ void testBinaryTree()
     BT.insert(11); // root->left->right
     BT.insert(13); // root->right->left
     BT.insert(15); // root->right->right
-    
-    // EXPECTED (correct) RESULT:        | ACTUAL RESULT:
-    //            3                      |                 3
-    //           / \                     |                / \
-    //        5       7                  |            5         7
-    //       / \     / \                 |           / \       / \
-    //      9  11   13 15                |        9      11
-    //                                   |       / \    /  \
-    //                                   |     13   15
-    //                                   |    /  \ /  \
-    //                                   |
-    
-    // |   FUNCTION   |      EXPECTED    | CORRECT? |
-    // | Root Print:  | 3                | YES |
-    // | LevelOrder:  | 3 5 7 9 11 13 15 | YES |
-    // | PreOrder:    | 3 5 9 11 7 13 15 | NO  |
-    // | InOrder:     | 9 5 11 3 13 7 15 | NO  |
-    // | PostOrder:   | 9 11 5 13 15 7 3 | NO  |
-    // | Height:      | 3 Levels         | NO  |
-    // | Total Nodes: | 7 Nodes          | YES |
-    // | Balanced:    | Not              | NO  |
     
     //    BT.autoFill(10);
     
@@ -132,6 +113,14 @@ void testAVLTree()
 {
     AVLTree AVL;
     
+    AVL.printRoot();
+    AVL.printLevelOrder();
+    AVL.printPreOrder();
+    AVL.printInOrder();
+    AVL.printPostOrder();
+    AVL.numberOfLevels();
+    AVL.numberOfNodes();
+    AVL.isBalanced();
 }
 
 void testHeap()

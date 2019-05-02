@@ -29,7 +29,8 @@ public:
     // ***** INSERTION ***** //
     void insert(int data)
     {
-        insert(data, root);
+        if (root == NULL) root = new Node(data);
+        else insert(data, root);
     }
     
     void autoFill(int amount)   // Function to automatically fill the tree...
@@ -121,65 +122,26 @@ private:
     Node *root;
 
     // ***** RECURSIVE FUNCTIONS ***** //
-//    void insert(int data, Node *tmp) // Recursive insert function //
-//    {
-//        if (tmp->left == NULL || tmp->right == NULL) // Check if EITHER the left or the right are open //
-//        {
-//            if (tmp->left == NULL)          // If the left was the open one,
-//                tmp->left = new Node(data); // insert there //
-//
-//            else if (tmp->right == NULL)     // Else if the right one was the open one,
-//                tmp->right = new Node(data); // insert there //
-//        }
-//
-//        else if (tmp->left != NULL || tmp->right != NULL) // But if they were both taken...
-//        {
-//            if (tmp->left != NULL)
-//                insert(data, tmp->left);    // ...Start recursing through the tree...
-//                                            // ...Until it finds the opening //
-//            else if (tmp->right != NULL)
-//                insert(data, tmp->right);
-//        }
-//    }
-    
-    void insert(int data, Node *&tmp)
+    void insert(int data, Node *tmp) // Recursive insert function //
     {
-        if (tmp == NULL)
+        if (tmp->left == NULL || tmp->right == NULL) // Check if EITHER the left or the right are open //
         {
-            tmp = new Node(data);
-            return;
+            if (tmp->left == NULL)          // If the left was the open one,
+                tmp->left = new Node(data); // insert there //
+
+            else if (tmp->right == NULL)     // Else if the right one was the open one,
+                tmp->right = new Node(data); // insert there //
         }
 
-        else if (tmp->left == NULL)
-            insert(data, tmp->left);
-        else
-            insert(data, tmp->right);
+        else if (tmp->left != NULL || tmp->right != NULL) // But if they were both taken...
+        {
+            if (tmp->left != NULL)
+                insert(data, tmp->left);    // ...Start recursing through the tree...
+                                            // ...Until it finds the opening //
+            else if (tmp->right != NULL)
+                insert(data, tmp->right);
+        }
     }
-    
-//    void insert(int data, Node *tmp) // Recursive insert function //
-//    {
-//        if (root == NULL)
-//            root = new Node(data);
-//
-//        else
-//        {
-//            if (data < tmp->info)
-//            {
-//                if(tmp->left != NULL)
-//                    insert(data, tmp->left);
-//                else
-//                    tmp->left = new Node (data);
-//            }
-//
-//            else if (data >= tmp->info)
-//            {
-//                if(tmp->right != NULL)
-//                    insert(data, tmp->right);
-//                else
-//                    tmp->right = new Node (data);
-//            }
-//        }
-//    }
     
     void printLevelOrder(Node *tmp)
     {
