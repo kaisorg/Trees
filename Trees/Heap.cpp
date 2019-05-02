@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <iostream>
-#include "Node.cpp"
+#include "Node.h"
 using namespace std;
 
 class Heap

@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <iostream>
-#include "Node.cpp"
+#include "Node.h"
 using namespace std;
 
 class BinaryTree
@@ -142,44 +142,44 @@ private:
 //        }
 //    }
     
-//    void insert(int data, Node *&tmp)
-//    {
-//        if (tmp == NULL)
-//        {
-//            tmp = new Node(data);
-//            return;
-//        }
-//
-//        else if (tmp->left == NULL)
-//            insert(data, tmp->left);
-//        else
-//            insert(data, tmp->right);
-//    }
-    
-    void insert(int data, Node *tmp) // Recursive insert function //
+    void insert(int data, Node *&tmp)
     {
-        if (root == NULL)
-            root = new Node(data);
-        
-        else
+        if (tmp == NULL)
         {
-            if (data < tmp->info)
-            {
-                if(tmp->left != NULL)
-                    insert(data, tmp->left);
-                else
-                    tmp->left = new Node (data);
-            }
-            
-            else if (data >= tmp->info)
-            {
-                if(tmp->right != NULL)
-                    insert(data, tmp->right);
-                else
-                    tmp->right = new Node (data);
-            }
+            tmp = new Node(data);
+            return;
         }
+
+        else if (tmp->left == NULL)
+            insert(data, tmp->left);
+        else
+            insert(data, tmp->right);
     }
+    
+//    void insert(int data, Node *tmp) // Recursive insert function //
+//    {
+//        if (root == NULL)
+//            root = new Node(data);
+//
+//        else
+//        {
+//            if (data < tmp->info)
+//            {
+//                if(tmp->left != NULL)
+//                    insert(data, tmp->left);
+//                else
+//                    tmp->left = new Node (data);
+//            }
+//
+//            else if (data >= tmp->info)
+//            {
+//                if(tmp->right != NULL)
+//                    insert(data, tmp->right);
+//                else
+//                    tmp->right = new Node (data);
+//            }
+//        }
+//    }
     
     void printLevelOrder(Node *tmp)
     {
