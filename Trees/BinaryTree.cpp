@@ -1,27 +1,15 @@
 //
-//  Tree.cpp
-//  Tree
+//  BinaryTree.cpp
+//  Trees
 //
 //  Created by Nitin K on 3/8/19.
 //  Copyright © 2019 CSCI 373. All rights reserved.
 //
 
+#include <stdio.h>
 #include <iostream>
+#include "Node.cpp"
 using namespace std;
-
-class Node
-// Simple Node, containing pointers to left and right, and var for integer
-{
-public:
-    Node()
-    { *left = NULL; *right = NULL; }
-    
-    Node(int data, Node *Lptr = NULL, Node *Rptr = NULL)
-    { info = data; left = Lptr; right = Rptr; }
-    
-    int info;
-    Node *left, *right;
-};
 
 class BinaryTree
 // Type of Tree where there are 0, 1, or 2 children per Node...
@@ -41,9 +29,7 @@ public:
     // ***** INSERTION ***** //
     void insert(int data)
     {
-        if (root == NULL) root = new Node(data); // Simply create new Node with (data) and make it *root //
-        
-        else insert(data, root); // Else go to the recursive insert function using the second param //
+        insert(data, root);
     }
     
     void autoFill(int amount)   // Function to automatically fill the tree...
@@ -67,7 +53,8 @@ public:
     // ***** PRINTS ***** //
     void printRoot()
     {
-        cout << root->info << endl;
+        cout << "BinaryTree: Root print: " << root->info << endl
+        << "----------------" << endl;
     }
     
     void visualTree()
@@ -149,24 +136,63 @@ private:
     Node *root;
 
     // ***** RECURSIVE FUNCTIONS ***** //
+//    void insert(int data, Node *tmp) // Recursive insert function //
+//    {
+//        if (tmp->left == NULL || tmp->right == NULL) // Check if EITHER the left or the right are open //
+//        {
+//            if (tmp->left == NULL)          // If the left was the open one,
+//                tmp->left = new Node(data); // insert there //
+//
+//            else if (tmp->right == NULL)     // Else if the right one was the open one,
+//                tmp->right = new Node(data); // insert there //
+//        }
+//
+//        else if (tmp->left != NULL || tmp->right != NULL) // But if they were both taken...
+//        {
+//            if (tmp->left != NULL)
+//                insert(data, tmp->left);    // ...Start recursing through the tree...
+//                                            // ...Until it finds the opening //
+//            else if (tmp->right != NULL)
+//                insert(data, tmp->right);
+//        }
+//    }
+    
+//    void insert(int data, Node *&tmp)
+//    {
+//        if (tmp == NULL)
+//        {
+//            tmp = new Node(data);
+//            return;
+//        }
+//
+//        else if (tmp->left == NULL)
+//            insert(data, tmp->left);
+//        else
+//            insert(data, tmp->right);
+//    }
+    
     void insert(int data, Node *tmp) // Recursive insert function //
     {
-        if (tmp->left == NULL || tmp->right == NULL) // Check if EITHER the left or the right are open //
+        if (root == NULL)
+            root = new Node(data);
+        
+        else
         {
-            if (tmp->left == NULL)          // If the left was the open one,
-                tmp->left = new Node(data); // insert there //
-
-            else if (tmp->right == NULL)     // Else if the right one was the open one,
-                tmp->right = new Node(data); // insert there //
-        }
-
-        else if (tmp->left != NULL || tmp->right != NULL) // But if they were both taken...
-        {
-            if (tmp->left != NULL)
-                insert(data, tmp->left);    // ...Start recursing through the tree...
-                                            // ...Until it finds the opening //
-            else if (tmp->right != NULL)
-                insert(data, tmp->right);
+            if (data < tmp->info)
+            {
+                if(tmp->left != NULL)
+                    insert(data, tmp->left);
+                else
+                    tmp->left = new Node (data);
+            }
+            
+            else if (data >= tmp->info)
+            {
+                if(tmp->right != NULL)
+                    insert(data, tmp->right);
+                else
+                    tmp->right = new Node (data);
+            }
         }
     }
     
@@ -296,54 +322,4 @@ private:
         
         return 0; // Default return
     }
-};
-
-class BSTree
-// Type of Tree where there are 0, 1, or 2 children per Node...
-// ...It has built-in sorting, where the median is the root Node...
-// ...Maintains fullness/completeness during insertion //
-{
-public:
-    // CONSTRUCTOR
-    
-    // ~DESTRUCTOR
-    
-    void insert(int data)
-    {
-        
-        if (root == NULL)
-            root = new Node(data);
-        
-        else
-        {
-            Node *tmp = root;
-            if (tmp->left == NULL)
-            {
-                
-            }
-        }
-    }
-    
-private:
-    Node *root, *leaf;
-};
-
-class AVLTree
-// A self-balancing BST where the difference between heights of left and right subtrees cannot be more than one for all nodes
-// Uses rotation to move things into their proper place
-{
-public:
-    
-private:
-    Node *root, *leaf;
-};
-
-class Heap
-{
-public:
-    ///<type> MaxHeapify()
-    
-    ///<type> MinHeapify()
-private:
-    Node *root, *leaf;
 };
