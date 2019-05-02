@@ -247,7 +247,7 @@ private:
     {
         if(tmp != NULL)
         {
-            
+            insert(data, tmp->right);
             destroy_tree(tmp->left);
             destroy_tree(tmp->right);
             delete tmp;
