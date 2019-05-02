@@ -57,21 +57,6 @@ public:
         << "----------------" << endl;
     }
     
-    void visualTree()
-    {
-        // we need level order for this
-        // and height
-        
-        // pseudocode:
-        // use height to determine how many spaces the root needs
-        // use levelorder and print the root
-        // endl and then insert slashes
-        // the amount of spaces used for the root, minus a variable number, print the root->left
-        // then the number of spaces subtracted are then printed
-        // then the right is printed, endl;
-        // insert slashes
-    }
-    
     void printLevelOrder()
     {
         cout << "BinaryTree: LevelOrder print:" << endl;

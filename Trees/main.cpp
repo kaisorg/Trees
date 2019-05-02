@@ -28,7 +28,7 @@ int main()
 void testBinaryTree()
 {
     BinaryTree BT;
-    BT.insert(10);  // root
+    BT.insert(3);  // root
     BT.insert(5);  // root->left
     BT.insert(7);  // root->right
     BT.insert(9);  // root->left->left
