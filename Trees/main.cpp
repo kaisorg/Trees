@@ -11,7 +11,6 @@
 #include "BSTree.cpp"
 #include "AVLTree.cpp"
 #include "Heap.cpp"
-#include <queue>
 using namespace std;
 
 // ***** PROTOTYPES ***** //
@@ -130,6 +129,16 @@ void testAVLTree()
     AVL.numberOfLevels();
     AVL.numberOfNodes();
     AVL.isBalanced();
+    
+    AVL.search(0);
+    AVL.search(10);
+    AVL.search(20);
+    AVL.search(30);
+    AVL.search(40);
+    AVL.search(50);
+    AVL.search(60);
+    AVL.search(70);
+    AVL.search(100);
 }
 
 void testHeap()
