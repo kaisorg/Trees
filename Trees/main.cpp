@@ -143,6 +143,6 @@ void testAVLTree()
 
 void testHeap()
 {
-    Heap H;
+//    Heap H;
     
 }
