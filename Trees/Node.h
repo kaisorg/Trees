@@ -22,7 +22,7 @@ public:
     Node(int data, Node *Lptr = NULL, Node *Rptr = NULL)
     { info = data; left = Lptr; right = Rptr; }
     
-    int info; int height;
+    int info;
     Node *left, *right;
 };
 

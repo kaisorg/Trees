@@ -37,13 +37,21 @@ public:
     void autoFill(int amount)   // Function to automatically fill the tree...
     {                           // ...with random numbers //
         for(int i = 0; i < amount; i++)
-            insert(rand()%100);
+            insert(rand()%1000);
     }
     
     // ***** DELETION ***** //
-    void deleteMerging(Node *node) // Using a merging alogrithim
+    void deleteHalf()
     {
-        Node *tmp = node;        //passes the value to a pointer Node *node
+        int halfsize = numberOfNodes(root) / 2;
+        
+        while (numberOfNodes(root) > halfsize)
+            findAndDeleteMerging(rand()%1000);
+    }
+    
+    void deleteMerging(Node *node) // Using a merging alogrithm
+    {
+        Node *tmp = node;        // passes the value to a pointer Node *node
         if (node != NULL)
         {
             if (!node->right)           // no children
@@ -57,7 +65,7 @@ public:
                 tmp = node->left;
                 while (tmp->right != NULL)
                     tmp = tmp->right;
-                tmp->right = node ->right;
+                tmp->right = node->right;
                 tmp = node;
                 node = node->left;
             }
@@ -67,13 +75,13 @@ public:
     
     void findAndDeleteMerging(int data) // searches for the data and calls the the deletion function
     {
-        // two perameters that are needed in order for this function to ... function *ba dum tskk*
+        // two parameters that are needed in order for this function to function
         Node *node = root;
         Node *prev = node;
         
         while (node != NULL)
         {
-            if (node->info == data) break; //if the data matches the data in the function
+            if (node->info == data) break; // if the data matches the data in the function
             
             prev = node;
             
@@ -90,7 +98,7 @@ public:
                 deleteMerging(root);
                 
                 if(root->left != NULL)
-                    root= root->left;
+                    root = root->left;
                 
                 else if(root->right != NULL)
                     root = root->right;

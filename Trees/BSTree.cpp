@@ -36,10 +36,18 @@ public:
     void autoFill(int amount)   // Function to automatically fill the tree...
     {                           // ...with random numbers //
         for(int i = 0; i < amount; i++)
-            insert(rand()%100);
+            insert(rand()%1000);
     }
     
     // ***** DELETION ***** //
+    void deleteHalf()
+    {
+        int halfsize = numberOfNodes(root) / 2;
+        
+        while (numberOfNodes(root) > halfsize)
+            findAndDeleteMerging(rand()%1000);
+    }
+    
     void deleteMerging(Node *node) // Using a merging alogrithim
     {
         Node *tmp = node;        //passes the value to a pointer Node *node

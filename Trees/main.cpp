@@ -14,138 +14,254 @@
 using namespace std;
 
 // ***** PROTOTYPES ***** //
-void openPanel();
-void testBinaryTree();
-void testBSTree();
-void testAVLTree();
-void testHeap();
+//void openPanel(); // Broken as Hell
+void demoBinaryTree();
+void demoBSTree();
+void demoAVLTree();
+void demoMaxHeap();
 
 // ***** MAIN ***** //
 int main()
 {
-    openPanel();
-//    testBinaryTree();
-//    testBSTree();
-//    testAVLTree();
-//    testHeap();
+//    openPanel(); // Broken as Hell
+    demoBinaryTree();
+    demoBSTree();
+    demoAVLTree();
+    demoMaxHeap();
     
     return 0;
 }
 
 // ***** FUNCTION DEFINITIONS ***** //
-void testBinaryTree()
+void demoBinaryTree()
 {
     BinaryTree BT;
-    BT.insert(3);  // root
-    BT.insert(5);  // root->left
-    BT.insert(7);  // root->right
-    BT.insert(9);  // root->left->left
-    BT.insert(11); // root->left->right
-    BT.insert(13); // root->right->left
-    BT.insert(15); // root->right->right
     
-    //    BT.autoFill(10);
-    
+    BT.autoFill(100);
     BT.printRoot();
+    BT.isBalanced();
+    
+    BT.numberOfLevels();
+    BT.numberOfNodes();
+    
     BT.printLevelOrder();
     BT.printPreOrder();
     BT.printInOrder();
     BT.printPostOrder();
+    
+    BT.deleteHalf();
     BT.numberOfLevels();
     BT.numberOfNodes();
-    BT.isBalanced();
     
-    BT.search(1);
-    BT.search(3);
-    BT.search(5);
-    BT.search(7);
-    BT.search(9);
-    BT.search(11);
-    BT.search(13);
-    BT.search(15);
-    BT.search(17);
+    BT.printLevelOrder();
+    BT.printPreOrder();
+    BT.printInOrder();
+    BT.printPostOrder();
+    
+    BT.search(rand()%1000);
+    
+    BT.~BinaryTree();
 }
 
-void testBSTree()
+void demoBSTree()
 {
     BSTree BST;
     
-    BST.insert(8);
-    BST.insert(3);
-    BST.insert(10);
-    BST.insert(1);
-    BST.insert(6);
-    BST.insert(14);
-    BST.insert(4);
-    BST.insert(7);
-    BST.insert(13);
-    
-    // EXPECTED (correct) RESULT:
-    //            8
-    //           / \
-    //        3       10
-    //       / \     / \
-    //      1   6      14
-    //         / \     / \
-    //        4   7   13
-    //
-    //
-    
-    // |   FUNCTION   |        EXPECTED      | CORRECT? |
-    // | Root Print:  | 8                    | YES |
-    // | LevelOrder:  | 8 3 10 1 6 14 4 7 13 | YES |
-    // | PreOrder:    | 8 3 1 6 4 7 10 14 13 | YES |
-    // | InOrder:     | 1 3 4 6 7 8 10 13 14 | YES |
-    // | PostOrder:   | 1 4 7 6 3 13 14 10 8 | YES |
-    // | Height:      | 4 Levels             | YES |
-    // | Total Nodes: | 9 Nodes              | YES |
-    // | Balanced:    | Not                  | YES |
-    
+    BST.autoFill(100);
     BST.printRoot();
+    BST.isBalanced();
+    
+    BST.numberOfLevels();
+    BST.numberOfNodes();
+    
     BST.printLevelOrder();
     BST.printPreOrder();
     BST.printInOrder();
     BST.printPostOrder();
+    
+    BST.deleteHalf();
     BST.numberOfLevels();
     BST.numberOfNodes();
-    BST.isBalanced();
+    
+    BST.printLevelOrder();
+    BST.printPreOrder();
+    BST.printInOrder();
+    BST.printPostOrder();
+    
+    BST.search(rand()%1000);
+    
+    BST.~BSTree();
 }
 
-void testAVLTree()
+void demoAVLTree()
 {
     AVLTree AVL;
     
-    AVL.insert(10);
-    AVL.insert(20);
-    AVL.insert(30);
-    AVL.insert(40);
-    AVL.insert(50);
-    AVL.insert(60);
-    AVL.insert(70);
-    AVL.insert(80);
-    AVL.insert(90);
-    
+    AVL.autoFill(100);
     AVL.printRoot();
+    AVL.isBalanced();
+    
+    AVL.numberOfLevels();
+    AVL.numberOfNodes();
+    
     AVL.printPreOrder();
     AVL.printInOrder();
     AVL.printPostOrder();
+    
+    AVL.deleteHalf();
     AVL.numberOfLevels();
     AVL.numberOfNodes();
-    AVL.isBalanced();
     
-    AVL.search(0);
-    AVL.search(10);
-    AVL.search(20);
-    AVL.search(30);
-    AVL.search(40);
-    AVL.search(50);
-    AVL.search(60);
-    AVL.search(70);
-    AVL.search(100);
+    AVL.printPreOrder();
+    AVL.printInOrder();
+    AVL.printPostOrder();
+    
+    AVL.search(rand()%1000);
+    
+    AVL.~AVLTree();
 }
 
-void testHeap()
+void demoMaxHeap()
 {
-//    Heap H;
+    MaxHeap H;
     
+    H.autoFill(100);
+    H.printRoot();
+    H.isBalanced();
+
+    H.numberOfLevels();
+    H.numberOfNodes();
+
+    H.printPreOrder();
+    H.printInOrder();
+    H.printPostOrder();
+
+    H.search(rand()%1000);
 }
+
+void demoMinHeap()
+{
+    MinHeap M;
+    
+    M.autoFill(100);
+    M.printRoot();
+    M.isBalanced();
+    
+    M.numberOfLevels();
+    M.numberOfNodes();
+    
+    M.printPreOrder();
+    M.printInOrder();
+    M.printPostOrder();
+    
+    M.search(rand()%1000);
+}
+
+//void openPanel() // Broken as Hell
+//{
+//    cout << "Welcome to the Tree Panel." << endl
+//    << "Select the Tree type you would like to test:" << endl
+//    << "1. Binary Tree" << endl
+//    << "2. Binary Search Tree" << endl
+//    << "3. AVL Tree" << endl
+//    << "4. Heap" << endl;
+//
+//    int input;
+//    cin >> input;
+//
+//    while (input == 1 || input == 2 || input == 3 || input == 4)
+//    {
+//        switch (input)
+//        {
+//            case 1:
+//            {
+//                cout << "Binary Tree Functions:" << endl
+//                << "1. Insert a Node" << endl
+//                << "2. Delete a Node" << endl
+//                << "3. Print Root" << endl
+//                << "4. Print PreOrder" << endl
+//                << "5. Print InOrder" << endl
+//                << "6. Print PostOrder" << endl;
+//                int input2;
+//                cin >> input2;
+//                switch (input2)
+//                {
+//                    case 1:
+//                    {
+//
+//                        cout << "Binary Tree Insertion:" << endl
+//                        << "Enter the value you would like to insert:" << endl;
+//
+//                        int data;
+//                        cin >> data;
+//
+//                        BT.insert(data);
+//
+//
+//                    }
+//
+//                    case 2:
+//                    {
+//                        cout << "Binary Tree Deletion:" << endl
+//                        << "Enter the value you would like to delete:" << endl;
+//
+//                        int data;
+//                        cin >> data;
+//                        BT.findAndDeleteMerging(data);
+//
+//
+//                    }
+//
+//                    default:
+//                    {
+//                        BinaryTree BT;
+//                    }
+//                }
+//                break;
+//            }
+//
+//            case 2:
+//            {
+//                BSTree BST;
+//                cout << "Binary Search Tree Functions:" << endl
+//                << "1. Insert a Node" << endl
+//                << "2. Delete a Node" << endl
+//                << "3. Print Root" << endl
+//                << "4. Print PreOrder" << endl
+//                << "5. Print InOrder" << endl
+//                << "6. Print PostOrder" << endl;
+//                break;
+//            }
+//
+//            case 3:
+//            {
+//                cout << "AVL Tree Functions:" << endl
+//                << "1. Insert a Node" << endl
+//                << "2. Delete a Node" << endl
+//                << "3. Print Root" << endl
+//                << "4. Print PreOrder" << endl
+//                << "5. Print InOrder" << endl
+//                << "6. Print PostOrder" << endl;;
+//                break;
+//            }
+//
+//            case 4:
+//            {
+//                cout << "Heap Functions:" << endl
+//                << "1. Insert a Node" << endl
+//                << "2. Delete a Node" << endl
+//                << "3. Print Root" << endl
+//                << "4. Print PreOrder" << endl
+//                << "5. Print InOrder" << endl
+//                << "6. Print PostOrder" << endl;;
+//                break;
+//            }
+//
+//            default:
+//            {
+//                cout << "Invalid input." << endl;
+//                break;
+//            }
+//        }
+//    }
+//}

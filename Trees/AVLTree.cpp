@@ -32,11 +32,17 @@ public:
         root = insert(root, data);
     }
     
+    void autoFill(int amount)   // Function to automatically fill the tree...
+    {                           // ...with random numbers //
+        for(int i = 0; i < amount; i++)
+            insert(rand()%1000);
+    }
+    
     // ***** ROTATION ***** //
-    Node *LLrotation(Node *parent)
+    ANode *LLrotation(ANode *parent)
     {
-        Node *tmp = parent->right;
-        Node *tmp2 = tmp->left;
+        ANode *tmp = parent->right;
+        ANode *tmp2 = tmp->left;
         
         // Perform rotation
         tmp->left = parent;
@@ -52,10 +58,10 @@ public:
         return tmp;
     }
     
-    Node *RRrotation(Node *parent)
+    ANode *RRrotation(ANode *parent)
     {
-        Node *tmp = parent->left;
-        Node *tmp2 = tmp->right;
+        ANode *tmp = parent->left;
+        ANode *tmp2 = tmp->right;
         
         // Perform rotation
         tmp->right = parent;
@@ -71,14 +77,14 @@ public:
         return tmp;
     }
     
-    Node *LRrotation(Node *parent)
+    ANode *LRrotation(ANode *parent)
     {
         parent->left = RRrotation(parent->left);
         parent = LLrotation(parent);
         return parent;
     }
 
-    Node *RLrotation(Node *parent)
+    ANode *RLrotation(ANode *parent)
     {
         parent->right = LLrotation(parent->right);
         parent = RRrotation(parent);
@@ -86,7 +92,7 @@ public:
     }
     
     // ***** BALANCE ***** //
-    Node *balance(Node *tmp)
+    ANode *balance(ANode *tmp)
     {
         int BFactor = getBFactor(tmp);
         
@@ -109,9 +115,17 @@ public:
     }
     
     // ***** DELETION ***** //
-    void deleteMerging(Node *node) // Using a merging alogrithim
+    void deleteHalf()
     {
-        Node *tmp = node;        //passes the value to a pointer Node *node
+        int halfsize = numberOfNodes(root) / 2;
+        
+        while (numberOfNodes(root) > halfsize)
+            findAndDeleteMerging(rand()%1000);
+    }
+    
+    void deleteMerging(ANode *node) // Using a merging alogrithim
+    {
+        ANode *tmp = node;        //passes the value to a pointer Node *node
         if (node != NULL)
         {
             if (!node->right)           // no children
@@ -136,8 +150,8 @@ public:
     void findAndDeleteMerging(int data) // searches for the data and calls the the deletion function
     {
         // two perameters that are needed in order for this function to ... function *ba dum tskk*
-        Node *node = root;
-        Node *prev = node;
+        ANode *node = root;
+        ANode *prev = node;
         
         while (node != NULL)
         {
@@ -186,7 +200,7 @@ public:
             cout << "BinaryTree: The BinaryTree is empty." << endl;
     }
     
-    void destroyTree(Node *&tmp)
+    void destroyTree(ANode *&tmp)
     {
         if (tmp != NULL)
         {
@@ -264,14 +278,14 @@ public:
     }
     
 private:
-    Node *root;
+    ANode *root;
     
     // ***** RECURSIVE FUNCTIONS ***** //
-    Node *insert(Node *tmp, int data)
+    ANode *insert(ANode *tmp, int data)
     {
         // Normal insertion from BST //
         if (tmp == NULL)
-            return (new Node(data));
+            return (new ANode(data));
         
         if (data < tmp->info)
             tmp->left = insert(tmp->left, data);
@@ -296,7 +310,7 @@ private:
             return RRrotation(tmp);
         }
         
-        if (bal < -1 && data < tmp->right->info)// if Right-Left
+        if (bal < -1 && data < tmp->right->info) // if Right-Left
         {
             tmp->right = RRrotation(tmp->right);
             return LLrotation(tmp);
@@ -305,7 +319,7 @@ private:
         return tmp;
     }
     
-    void printPreOrder(Node *tmp)
+    void printPreOrder(ANode *tmp)
     {
         if (root == NULL)
             cout << "AVLTree Error: printLevelOrder failed because AVLTree does not exist." << endl;
@@ -318,7 +332,7 @@ private:
         }
     }
     
-    void printInOrder(Node *tmp)
+    void printInOrder(ANode *tmp)
     {
         if (root == NULL)
             cout << "AVLTree Error: printInOrder failed because AVLTree does not exist." << endl;
@@ -331,7 +345,7 @@ private:
         }
     }
     
-    void printPostOrder(Node *tmp)
+    void printPostOrder(ANode *tmp)
     {
         if (root == NULL)
             cout << "AVLTree Error: printPostOrder failed because AVLTree does not exist." << endl;
@@ -344,14 +358,14 @@ private:
         }
     }
     
-    int height(Node *tmp)
+    int height(ANode *tmp)
     {
         if (tmp == NULL)
             return 0;
         return tmp->height;
     }
     
-    int search(int data, int level, Node *tmp)
+    int search(int data, int level, ANode *tmp)
     {
         if (tmp == NULL) return 0;
         if (tmp->info == data) return level;
@@ -363,7 +377,7 @@ private:
         return reclevel;
     }
     
-    int numberOfNodes(Node *tmp)
+    int numberOfNodes(ANode *tmp)
     {
         int count = 1;
         
@@ -376,7 +390,7 @@ private:
         return count;
     }
     
-    bool isBalanced(Node *tmp)
+    bool isBalanced(ANode *tmp)
     {
         if(tmp == NULL)
             return 0; // Can't be balanced if it doesn't exist
@@ -396,7 +410,7 @@ private:
         return 0; // Default return
     }
     
-    int getBFactor(Node *tmp) // get Balance Factor of the AVL Tree
+    int getBFactor(ANode *tmp) // get Balance Factor of the AVL Tree
     {
         if (tmp == NULL)
             return 0;
