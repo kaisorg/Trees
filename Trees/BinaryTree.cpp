@@ -20,11 +20,12 @@ public:
     BinaryTree()
     { root = NULL; }
     
-//    ~BinaryTree() // definitely wrong as f
-//    {
-//        cout << "BinaryTree Warning: Destructor called." << endl;
-//        destroyTree();
-//    }
+    ~BinaryTree()
+    {
+        cout << "BinaryTree Warning: Destructor called." << endl;
+        destroyTree(*&root);
+        cout << "----------------" << endl;
+    }
     
     // ***** INSERTION ***** //
     void insert(int data)
@@ -115,6 +116,17 @@ public:
         
         else
             cout << "BinaryTree: The BinaryTree is empty." << endl;
+    }
+    
+    void destroyTree(Node *&tmp)
+    {
+        if (tmp != NULL)
+        {
+            destroyTree(tmp->left);
+            destroyTree(tmp->right);
+            delete tmp;
+        }
+        tmp = NULL;
     }
     
     // ***** PRINTS ***** //

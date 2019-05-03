@@ -23,7 +23,8 @@ public:
     ~BSTree()
     {
         cout << "BSTree Warning: Destructor called." << endl;
-//        destroyTree(root);
+        destroyTree(*&root);
+        cout << "----------------" << endl;
     }
     
     // ***** INSERTION ***** //
@@ -114,6 +115,17 @@ public:
         
         else
             cout << "BinaryTree: The BinaryTree is empty." << endl;
+    }
+    
+    void destroyTree(Node *&tmp)
+    {
+        if (tmp != NULL)
+        {
+            destroyTree(tmp->left);
+            destroyTree(tmp->right);
+            delete tmp;
+        }
+        tmp = NULL;
     }
     
     // ***** PRINTS ***** //

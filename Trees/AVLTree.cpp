@@ -19,11 +19,12 @@ public:
     AVLTree()
     { root = NULL; }
     
-//    ~AVLTree()
-//    {
-//        cout << "AVLTree Warning: Destructor called." << endl;
-//        destroyTree();
-//    }
+    ~AVLTree()
+    {
+        cout << "AVLTree Warning: Destructor called." << endl;
+        destroyTree(*&root);
+        cout << "----------------" << endl;
+    }
     
     // ***** INSERTION ***** //
     void insert(int data)
@@ -183,6 +184,17 @@ public:
         
         else
             cout << "BinaryTree: The BinaryTree is empty." << endl;
+    }
+    
+    void destroyTree(Node *&tmp)
+    {
+        if (tmp != NULL)
+        {
+            destroyTree(tmp->left);
+            destroyTree(tmp->right);
+            delete tmp;
+        }
+        tmp = NULL;
     }
     
     // ***** PRINTS ***** //

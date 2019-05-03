@@ -14,6 +14,7 @@
 using namespace std;
 
 // ***** PROTOTYPES ***** //
+void openPanel();
 void testBinaryTree();
 void testBSTree();
 void testAVLTree();
@@ -22,9 +23,11 @@ void testHeap();
 // ***** MAIN ***** //
 int main()
 {
+    openPanel();
 //    testBinaryTree();
 //    testBSTree();
-    testAVLTree();
+//    testAVLTree();
+//    testHeap();
     
     return 0;
 }
