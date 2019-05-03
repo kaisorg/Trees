@@ -107,6 +107,69 @@ public:
         else cout << "BSTree is not balanced." << endl;
         cout << "----------------" << endl;
     }
+
+    // *** DELETION FUNCTIONS *** //
+    void deletemerging(Node *node)
+    {
+        Node *tmp= node;
+        if (node !=NULL)
+        {
+            if (!node->right)
+               { node = node->left;}
+            else if (node->left == NULL) {
+                node = node->right;
+            }
+            else
+            {
+                tmp= node->left;
+                while (tmp->right != NULL)
+                tmp = tmp->right;
+                tmp->right = node ->right;
+                tmp = node;
+                node = node->left;
+            }          
+            delete tmp;
+
+        }
+    }
+
+    void FindandDeleteMerging(int data)
+    {   
+
+       Node *node = root;
+       Node *prev = node;
+
+    while (node != 0)
+        {
+            if (node ->info == data)
+                break;
+                prev = node;                     
+            if( data < node->info)
+                node = node->left;
+            else
+                node = node->right;
+        }
+        if (node != 0 && node ->info == data)
+           { 
+            if (node == root)
+                    deletemerging(root);
+            else if (prev->left == node)
+                {   
+                    deletemerging(prev->left);
+                    prev->left = NULL;
+                }
+            else
+                {
+                    deletemerging(prev->right);
+                    prev->right = NULL;
+                }
+            }
+        else if (root != 0)
+            cout << "data" << data << "is not in the tree\n";
+
+        else
+            cout << "the tree is empty\n";
+    }
     
 private:
     Node *root;
