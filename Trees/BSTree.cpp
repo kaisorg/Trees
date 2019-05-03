@@ -109,19 +109,20 @@ public:
     }
 
     // *** DELETION FUNCTIONS *** //
-    void deletemerging(Node *node)
+    void deletemerging(Node *node) // Using a merging alogrithim
     {
-        Node *tmp= node;
+        Node *tmp= node;        //passes the value to a pointer Node *node
         if (node !=NULL)
         {
-            if (!node->right)
+            if (!node->right)           // no children
                { node = node->left;}
-            else if (node->left == NULL) {
+            else if (node->left == NULL) // one child node
+            { 
                 node = node->right;
             }
-            else
+            else                        //contains both children
             {
-                tmp= node->left;
+                tmp= node->left;            
                 while (tmp->right != NULL)
                 tmp = tmp->right;
                 tmp->right = node ->right;
@@ -133,18 +134,18 @@ public:
         }
     }
 
-    void FindandDeleteMerging(int data)
+    void FindandDeleteMerging(int data) // searches for the data and calls the the deletion function 
     {   
-
+        // two perameters that are needed in order for this function to ... function *ba dum tskk*
        Node *node = root;
        Node *prev = node;
 
     while (node != 0)
         {
-            if (node ->info == data)
-                break;
+            if (node ->info == data)       //if the data matches the data in the function 
+                break; 
                 prev = node;                     
-            if( data < node->info)
+            if( data < node->info)         //
                 node = node->left;
             else
                 node = node->right;
@@ -152,16 +153,27 @@ public:
         if (node != 0 && node ->info == data)
            { 
             if (node == root)
-                    deletemerging(root);
+            {       deletemerging(root);
+                    if(root->left != NULL)
+                    {
+                        root= root->left;
+                    }
+                    else if(root->right != NULL)
+                    {
+                        root = root->right;
+                    }
+                    else 
+                    cout<<"tree is empty"<<emdl;
+            }
             else if (prev->left == node)
                 {   
                     deletemerging(prev->left);
-                    prev->left = NULL;
+                    prev->left = NULL; // Does not return 0
                 }
             else
                 {
                     deletemerging(prev->right);
-                    prev->right = NULL;
+                    prev->right = NULL; //does not return 0
                 }
             }
         else if (root != 0)
